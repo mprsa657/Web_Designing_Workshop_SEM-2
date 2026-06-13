@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Employee Salary Management System</title>
+
+    <style>
+        body {
+            background-color: #f2f2f2;
+            font-family: Arial;
+            text-align: center;
+        }
+
+        .box {
+            width: 360px;
+            margin: 80px auto;
+            padding: 20px;
+            background: #e6e6e6;
+            border-radius: 10px;
+            box-shadow: 0 0 10px gray;
+        }
+
+        input {
+            width: 80%;
+            padding: 6px;
+            margin: 5px;
+        }
+
+        button {
+            margin: 5px;
+            padding: 6px 10px;
+            background: green;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: darkgreen;
+        }
+
+        #output {
+            margin-top: 10px;
+            font-size: 14px;
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="box">
+    <h3>Employee Salary Management System</h3>
+
+    <input type="text" id="name" placeholder="Name"><br>
+    <input type="text" id="empId" placeholder="Emp ID"><br>
+    <input type="number" id="salary" placeholder="Salary"><br>
+    <input type="text" id="dept" placeholder="Department"><br>
+
+    <button onclick="addEmployee()">Add Employee</button><br>
+
+    <button onclick="showAll()">Display All</button>
+    <button onclick="salaryCheck()">Salary > 50000</button>
+    <button onclick="totalSalary()">Total Salary</button>
+    <button onclick="averageSalary()">Average Salary</button><br>
+    <button onclick="countDepartment()">Count Department</button>
+
+    <div id="output"></div>
+</div>
+
+<script>
+let employees = [];
+
+function addEmployee() {
+    let name = document.getElementById("name").value;
+    let id = document.getElementById("empId").value;
+    let salary = parseFloat(document.getElementById("salary").value);
+    let dept = document.getElementById("dept").value;
+
+    if (name === "" || id === "" || isNaN(salary) || dept === "") {
+        alert("Fill all fields properly!");
+        return;
+    }
+
+    employees.push({name, id, salary, dept});
+    alert("Employee Added!");
+
+    document.getElementById("name").value = "";
+    document.getElementById("empId").value = "";
+    document.getElementById("salary").value = "";
+    document.getElementById("dept").value = "";
+}
+
+function showAll() {
+    let out = "<b>All Employees:</b><br>";
+    employees.forEach(e => {
+        out += "Name: " + e.name +
+               " | ID: " + e.id +
+               " | Salary: ₹" + e.salary +
+               " | Dept: " + e.dept + "<br>";
+    });
+    document.getElementById("output").innerHTML = out;
+}
+
+function salaryCheck() {
+    let filtered = employees.filter(e => e.salary > 50000);
+
+    let out = "<b>Salary > 50000:</b><br>";
+    filtered.forEach(e => {
+        out += e.name + " (ID: " + e.id + ") - ₹" + e.salary + "<br>";
+    });
+
+    out += "<br><b>Total Employees: " + filtered.length + "</b>";
+
+    document.getElementById("output").innerHTML = out;
+}
+
+function totalSalary() {
+    let total = employees.reduce((sum, e) => sum + e.salary, 0);
+    document.getElementById("output").innerHTML = "Total Salary: ₹" + total;
+}
+
+function averageSalary() {
+    if (employees.length === 0) return;
+
+    let total = employees.reduce((sum, e) => sum + e.salary, 0);
+    let avg = total / employees.length;
+
+    document.getElementById("output").innerHTML = "Average Salary: ₹" + avg.toFixed(2);
+}
+
+function countDepartment() {
+    let deptInput = prompt("Enter department to search:");
+
+    if (!deptInput) {
+        alert("Invalid input!");
+        return;
+    }
+
+    let count = employees.filter(e => 
+        e.dept.toLowerCase() === deptInput.toLowerCase()
+    ).length;
+
+    document.getElementById("output").innerHTML =
+        "Employees in " + deptInput + ": " + count;
+}
+</script>
+Mohit Suri CSE-21 2503201000731
+
+</body>
+</html>
