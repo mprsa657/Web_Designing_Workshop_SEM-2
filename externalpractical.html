@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>External Practical</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #box {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            width: 320px;
+            color: #333333;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        #temp {
+            width: 100%;
+            padding: 12px;
+            margin: 15px 0;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+
+        #but {
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+
+
+        #res {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #28a745;
+            font-weight: bold;
+            min-height: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        Temperature in Celsius:
+        <input type="number" id="temp" placeholder="Enter °C">
+        <button id="but" onclick="convert()">Convert to Fahrenheit</button>
+        <div id="res"></div>
+    </div>
+
+    <script>
+        function convert(){
+            let t = parseFloat(document.getElementById("temp").value);
+            if (isNaN(t)) {
+                document.getElementById("res").innerHTML = "Please enter a valid number";
+                document.getElementById("res").style.color = "#dc3545";
+                return;
+            }
+            let score = (t * 9 / 5) + 32;
+            document.getElementById("res").innerHTML = "Temperature in Fahrenheit: " + score.toFixed(1) + " °F";
+            document.getElementById("res").style.color = "#28a745";
+        }
+    </script>
+</body>
+</html>
